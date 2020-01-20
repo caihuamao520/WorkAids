@@ -1,0 +1,4 @@
+/WorkAidsTools/*.suo
+/WorkAidsTools/WorkAidsTools/bin
+/WorkAidsTools/WorkAidsTools/obj
+/*.gitignore

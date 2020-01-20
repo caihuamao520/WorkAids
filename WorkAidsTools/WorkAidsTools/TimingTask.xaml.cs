@@ -17,11 +17,24 @@ namespace WorkAidsTools
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TimingTask : Window
     {
-        public MainWindow()
+        private Queue<string> list;
+        public TimingTask()
         {
+            list = new Queue<string>();
             InitializeComponent();
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelet_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

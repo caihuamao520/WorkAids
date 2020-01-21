@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Mode;
 
 namespace WorkAidsTools
 {
@@ -19,14 +20,7 @@ namespace WorkAidsTools
     public partial class TimingTask_Add : Window
     {
         #region 属性
-        /// <summary>
-        /// 触发时间
-        /// </summary>
-        public DateTime? TriggerTime { get;private set; }
-        /// <summary>
-        /// 提醒内容
-        /// </summary>
-        public string ReminderContent { get; set; }
+        public TimingTaskInfor TaskInfor { get; set; }
         #endregion
 
         public TimingTask_Add()
@@ -74,13 +68,19 @@ namespace WorkAidsTools
             }
             else
             {
-
                 MessageBox.Show("无效的时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.txtTimeMinutes.Focus();
                 return;
             }
             //构造时间
-            TriggerTime = this.dpDate.SelectedDate;
+            DateTime? TriggerTime = this.dpDate.SelectedDate;
+
+            if (!TriggerTime.HasValue)
+            {
+                MessageBox.Show("请先选择一个日期", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             TriggerTime = TriggerTime.Value.AddHours(iHours);
             TriggerTime = TriggerTime.Value.AddMinutes(iMinutes);
 
@@ -93,8 +93,10 @@ namespace WorkAidsTools
                 return;
             }
 
-            ReminderContent = this.txtContent.Text;
-
+            TaskInfor = new TimingTaskInfor() {
+                TriggerTime = (DateTime)TriggerTime,
+                ReminderContent = this.txtContent.Text
+            };
             this.DialogResult = true;
             this.Close();
         }

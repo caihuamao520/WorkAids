@@ -1,0 +1,21 @@
+﻿<Window x:Class="WorkAidsTools.Mian"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="辅助工具" Height="362" Width="671"
+        WindowStartupLocation="CenterScreen" Icon="workstation.ico">
+    <Grid>
+        <DockPanel >
+            <StackPanel DockPanel.Dock="Left" Width="100" Orientation="Vertical" Background="AntiqueWhite">
+                <Button Name="btnTimingTask" Click="btnTimingTask_Click">
+                    <StackPanel Orientation="Vertical">
+                        <Image Width="70" Height="70" Source="pack://siteoforigin:,,,/Resources/Timer.png"></Image>
+                        <TextBlock HorizontalAlignment="Center" Margin="5">定时任务</TextBlock>
+                    </StackPanel>                    
+                </Button>
+            </StackPanel>
+            <Grid DockPanel.Dock="Right">
+                
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

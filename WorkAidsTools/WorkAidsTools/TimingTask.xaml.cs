@@ -28,7 +28,8 @@ namespace WorkAidsTools
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            TimingTask_Add ttadd = new TimingTask_Add();
+            ttadd.ShowDialog();
         }
 
         private void btnDelet_Click(object sender, RoutedEventArgs e)

@@ -18,9 +18,91 @@ namespace WorkAidsTools
     /// </summary>
     public partial class TimingTask_Add : Window
     {
+        #region 属性
+        /// <summary>
+        /// 触发时间
+        /// </summary>
+        public DateTime? TriggerTime { get;private set; }
+        /// <summary>
+        /// 提醒内容
+        /// </summary>
+        public string ReminderContent { get; set; }
+        #endregion
+
         public TimingTask_Add()
         {
             InitializeComponent();
+
+            InitData();
+        }
+        /// <summary>
+        /// 初始化页面数据
+        /// </summary>
+        private void InitData()
+        {
+            this.txtTimeHouse.Text = DateTime.Now.Hour.ToString();
+            this.txtTimeMinutes.Text = DateTime.Now.Minute.ToString();
+        }
+
+        private void OK_Click(object sender, RoutedEventArgs e)
+        {
+            int iHours, iMinutes;
+
+            if (int.TryParse(this.txtTimeHouse.Text.Trim(), out iHours))
+            {
+                if (iHours >= 24)
+                {
+                    MessageBox.Show("无效的时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.txtTimeHouse.Focus();
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("无效的时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.txtTimeHouse.Focus();
+                return;
+            }
+            if (int.TryParse(this.txtTimeMinutes.Text.Trim(), out iMinutes))
+            {
+                if (iMinutes >= 60)
+                {
+                    MessageBox.Show("无效的时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.txtTimeMinutes.Focus();
+                    return;
+                }
+            }
+            else
+            {
+
+                MessageBox.Show("无效的时间", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.txtTimeMinutes.Focus();
+                return;
+            }
+            //构造时间
+            TriggerTime = this.dpDate.SelectedDate;
+            TriggerTime = TriggerTime.Value.AddHours(iHours);
+            TriggerTime = TriggerTime.Value.AddMinutes(iMinutes);
+
+            //时间是否小于当前系统时间
+            int iCompare = TriggerTime.Value.CompareTo(DateTime.Now);
+            if (iCompare <= 0)
+            {
+                MessageBox.Show("设定的时间不能小于或等于当前计算机时间。", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.txtTimeMinutes.Focus();
+                return;
+            }
+
+            ReminderContent = this.txtContent.Text;
+
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
         }
     }
 }

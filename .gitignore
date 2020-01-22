@@ -2,3 +2,5 @@
 /WorkAidsTools/WorkAidsTools/bin
 /WorkAidsTools/WorkAidsTools/obj
 /*.gitignore
+/WorkAidsTools/Mode/bin
+/WorkAidsTools/Mode/obj

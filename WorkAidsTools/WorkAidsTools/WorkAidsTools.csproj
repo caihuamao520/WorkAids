@@ -67,10 +67,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TimingTask.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -79,10 +75,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Image.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TimingTask.xaml.cs">
-      <DependentUpon>TimingTask.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="TimingTask_Add.xaml">
       <SubType>Designer</SubType>
@@ -140,6 +132,14 @@
       <Project>{7f94d4c5-7c4d-46d4-8096-0f1f363def9d}</Project>
       <Name>Mode</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\music.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Notepad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

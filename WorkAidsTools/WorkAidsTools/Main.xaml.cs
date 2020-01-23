@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WorkAidsTools
 {
@@ -20,10 +21,48 @@ namespace WorkAidsTools
     public partial class Mian : Window
     {
         private Dictionary<string, TimingTaskInfor> TimingTaskLis;
+        private DispatcherTimer timeMain;
         public Mian()
         {
             InitializeComponent();
             TimingTaskLis = new Dictionary<string, TimingTaskInfor>();
+            timeMain = new DispatcherTimer();
+            timeMain.Interval = TimeSpan.FromSeconds(1);
+            timeMain.Tick += timeMain_Tick;
+            timeMain.Start();
+        }
+
+        void timeMain_Tick(object sender, EventArgs e)
+        {
+            if (TimingTaskLis.Count <= 0) return;
+            List<string> RemoveKeyName = new List<string>();
+            foreach (string keyName in TimingTaskLis.Keys)
+            {
+                TimingTaskInfor tti = TimingTaskLis[keyName];
+
+                int iCompareValue = tti.TriggerTime.CompareTo(DateTime.Now);
+                if (iCompareValue <= 0)
+                {
+                    string strContent = tti.ReminderContent;
+
+                    if (string.IsNullOrEmpty(strContent))
+                    {
+                        MessageBox.Show("你设置的闹钟时间到了！", "提醒", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(strContent, "备忘录", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+
+                    RemoveKeyName.Add(keyName);
+                }
+            }
+
+            foreach (string key in RemoveKeyName)
+            {
+                TimingTaskLis.Remove(key);
+                this.ListWorke.Items.Remove(key);
+            }
         }
 
         private void ShowGridContent(string grindName)

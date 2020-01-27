@@ -4,3 +4,7 @@
 /*.gitignore
 /WorkAidsTools/Mode/bin
 /WorkAidsTools/Mode/obj
+/WorkAidsTools/Common/bin
+/WorkAidsTools/Common/obj
+/WorkAidsTools/BLL/bin
+/WorkAidsTools/BLL/obj

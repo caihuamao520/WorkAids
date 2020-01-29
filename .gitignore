@@ -8,3 +8,6 @@
 /WorkAidsTools/Common/obj
 /WorkAidsTools/BLL/bin
 /WorkAidsTools/BLL/obj
+/WorkAidsTools/DAL/bin
+/WorkAidsTools/DAL/obj
+/WorkAidsTools/WorkAidsTools/WorkAidsTools.csproj.user

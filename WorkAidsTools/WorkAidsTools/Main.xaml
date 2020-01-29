@@ -1,27 +1,27 @@
 ﻿<Window x:Class="WorkAidsTools.Mian"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="辅助工具" Height="450" Width="671"
+        Title="工作辅助工具" Height="485" Width="671"
         WindowStartupLocation="CenterScreen" Icon="workstation.ico">
     <Grid>
         <DockPanel >
-            <StackPanel DockPanel.Dock="Left" Width="100" Orientation="Vertical" Background="AntiqueWhite">
+            <StackPanel DockPanel.Dock="Left" Width="100" Orientation="Vertical" Background="AntiqueWhite">                
                 <Button Name="btnTimingTask" Click="btnTimingTask_Click" Margin="0,3,0,0">
                     <StackPanel Orientation="Vertical">
                         <Image Width="70" Height="70" Source="pack://siteoforigin:,,,/Resources/Timer.png"></Image>
-                        <TextBlock HorizontalAlignment="Center" Margin="5">定时任务</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="15" FontWeight="Bold">定时任务</TextBlock>
                     </StackPanel>                    
                 </Button>
                 <Button Name="btnMusic" Margin="0,3,0,0" Click="btnMusic_Click">
                     <StackPanel Orientation="Vertical">
                         <Image Width="70" Height="70" Source="Resources/music.png"></Image>
-                        <TextBlock HorizontalAlignment="Center" Margin="5">音乐</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="15" FontWeight="Bold">音 乐</TextBlock>
                     </StackPanel>
                 </Button>
                 <Button Name="btnNotepad" Margin="0,3,0,0" Click="btnNotepad_Click">
                     <StackPanel Orientation="Vertical">
                         <Image Width="70" Height="70" Source="Resources/Notepad.png"></Image>
-                        <TextBlock HorizontalAlignment="Center" Margin="5">记事本</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Margin="5" FontSize="15" FontWeight="Bold">记事本</TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>

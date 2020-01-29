@@ -50,6 +50,10 @@
       <Project>{f1a2ca87-0616-4256-a660-3207467b5fac}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{a2a86020-be62-4a4a-bd0c-6039756a3b12}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mode\Mode.csproj">
       <Project>{7f94d4c5-7c4d-46d4-8096-0f1f363def9d}</Project>
       <Name>Mode</Name>

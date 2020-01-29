@@ -11,6 +11,10 @@ namespace Mode
     public class TimingTaskInfor
     {
         /// <summary>
+        /// 数据唯一编号
+        /// </summary>
+        public int dbID { get; set; }
+        /// <summary>
         /// 触发时间
         /// </summary>
         public DateTime TriggerTime { get; set; }

@@ -129,9 +129,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj">
-      <Project>{7e25f0fd-b86f-493e-b4e2-37f5881fa279}</Project>
-      <Name>BLL</Name>
+    <ProjectReference Include="..\Control\Control.csproj">
+      <Project>{42ac4d5c-7cfe-4ffa-aeaf-be83034c9361}</Project>
+      <Name>Control</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mode\Mode.csproj">
       <Project>{7f94d4c5-7c4d-46d4-8096-0f1f363def9d}</Project>

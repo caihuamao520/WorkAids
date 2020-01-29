@@ -1,4 +1,5 @@
-﻿using Mode;
+﻿using Control;
+using Mode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,32 @@ namespace WorkAidsTools
     {
         private Dictionary<string, TimingTaskInfor> TimingTaskLis;
         private DispatcherTimer timeMain;
+        private TimingTaskControl _TimingTaskControl;
         public Mian()
         {
+            InitData();
             InitializeComponent();
-            TimingTaskLis = new Dictionary<string, TimingTaskInfor>();
+            InitShow();
+
+
             timeMain = new DispatcherTimer();
             timeMain.Interval = TimeSpan.FromSeconds(1);
             timeMain.Tick += timeMain_Tick;
             timeMain.Start();
+        }
+        //初始化数据
+        private void InitData()
+        {
+            _TimingTaskControl = new TimingTaskControl();
+            TimingTaskLis = _TimingTaskControl.GetTimingTaskInforAll();
+        }
+        //初始化显示数据
+        private void InitShow()
+        {
+            foreach (string keyName in TimingTaskLis.Keys)
+            {
+                this.ListWorke.Items.Add(keyName);
+            }
         }
 
         void timeMain_Tick(object sender, EventArgs e)
@@ -60,8 +79,7 @@ namespace WorkAidsTools
 
             foreach (string key in RemoveKeyName)
             {
-                TimingTaskLis.Remove(key);
-                this.ListWorke.Items.Remove(key);
+                RemoveTimingTask(key);
             }
         }
 
@@ -105,20 +123,26 @@ namespace WorkAidsTools
             TimingTask_Add ttadd = new TimingTask_Add();
             if (ttadd.ShowDialog() == true)
             {
-                string strItenmName = string.Empty;
                 TimingTaskInfor tti = ttadd.TaskInfor;
-                string str = tti.ReminderContent;
+                string strItenmName = _TimingTaskControl.CreteTimingTaskTitle(tti);
 
-                if (string.IsNullOrEmpty(str))
+                if (this.ListWorke.Items.Contains(strItenmName))
                 {
-                    strItenmName = string.Format("【定时闹钟】时间:{0}", tti.TriggerTime.ToString("yyyy/MM/dd hh:mm:ss"));
+                    MessageBox.Show(string.Format("已存在 {0} 不能重复添加！", strItenmName), "重复添加", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    return;
                 }
                 else
                 {
-                    strItenmName = string.Format("【备忘提醒 {0}】:{1}", tti.TriggerTime.ToString("yyyy/MM/dd hh:mm:ss"), tti.ReminderContent);
+                    if (_TimingTaskControl.Add(tti).dbID > 0)//添加数据直数据库
+                    {
+                        this.ListWorke.Items.Add(strItenmName);
+                        TimingTaskLis.Add(strItenmName, tti);
+                    }
+                    else //获取信息失败 更新整个列表
+                    {
+                        UpdatTimingTaskList();                        
+                    }
                 }
-                this.ListWorke.Items.Add(strItenmName);
-                TimingTaskLis.Add(strItenmName, tti);
             }
         }
 
@@ -127,19 +151,41 @@ namespace WorkAidsTools
             try
             {
                 object obj = this.ListWorke.SelectedValue;
-
                 if (obj == null) return;
-                string strSelectItemName = obj.ToString();
 
-                TimingTaskLis.Remove(strSelectItemName);
-
-                this.ListWorke.Items.Remove(strSelectItemName);
+                RemoveTimingTask(obj.ToString());
             }
             catch (Exception ee)
             {
                 MessageBox.Show(ee.Message, "移除异常", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        //移除一个任务
+        public bool RemoveTimingTask(string timingTaskTitle)
+        {
+            if (_TimingTaskControl.Delete(TimingTaskLis[timingTaskTitle]))
+            {
+                TimingTaskLis.Remove(timingTaskTitle);
+                this.ListWorke.Items.Remove(timingTaskTitle);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //更新任务列表
+        public void UpdatTimingTaskList()
+        {
+            TimingTaskLis = _TimingTaskControl.GetTimingTaskInforAll();
+            this.ListWorke.Items.Clear();
+            foreach (string keyName in TimingTaskLis.Keys)
+            {
+                this.ListWorke.Items.Add(keyName);
+            }
+        }
+
         #endregion
 
 

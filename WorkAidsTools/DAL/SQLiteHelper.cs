@@ -82,7 +82,7 @@ namespace DAL
             {
                 conn = GetCoon();
                 SQLiteCommand cmd = new SQLiteCommand(cmdText, conn);
-                if (ps != null)
+                if (ps.Length > 0)
                 {
                     cmd.Parameters.AddRange(ps);
                 }
@@ -121,7 +121,7 @@ namespace DAL
                 {
                     string cmdText = cmdTexts[i];
                     SQLiteCommand cmd = new SQLiteCommand(cmdText, conn);
-                    if (ps != null)
+                    if (ps.Length > 0)
                     {
                         if (cmdTexts.Length != ps.Length)
                         {
@@ -167,7 +167,7 @@ namespace DAL
                 coon = GetCoon();
                 DataTable dt = new DataTable();
                 SQLiteDataAdapter da = new SQLiteDataAdapter(cmdText, coon);
-                if (ps != null)
+                if (ps.Length > 0)
                 {
                     da.SelectCommand.Parameters.AddRange(ps);
                 }
@@ -188,7 +188,39 @@ namespace DAL
                 }
             }
         }
+        /// <summary>
+        /// 插入一条数据，并返回主键数据
+        /// </summary>
+        /// <param name="insertCmd"></param>
+        /// <param name="ps"></param>
+        /// <returns></returns>
+        public object InsertDataBrakeAutoid(string insertCmd,params SQLiteParameter[] ps)
+        {
+            SQLiteConnection conn = null;
 
-
+            try
+            {
+                conn = GetCoon();
+                SQLiteCommand cmd = new SQLiteCommand(insertCmd, conn);
+                if (ps.Length > 0)
+                {
+                    cmd.Parameters.AddRange(ps);
+                }
+                object obj = cmd.ExecuteScalar();
+                return obj;
+            }
+            catch (Exception ee)
+            {
+                throw new Exception("插入数据错误，错误信息：" + ee.Message);
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
     }
 }
